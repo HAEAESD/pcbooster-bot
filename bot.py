@@ -4,12 +4,21 @@ import requests
 import os
 from dotenv import load_dotenv
 
-# 🔹 Charger les variables d'environnement
+# 🔹 Charger les variables d'environnement (utile en local)
 load_dotenv()
+
+# 🔹 Variables d'environnement
 TOKEN = os.getenv("DISCORD_TOKEN")
 API_PASSWORD = os.getenv("API_PASSWORD")
 API_URL = os.getenv("API_URL")
-ADMIN_IDS = [int(x) for x in os.getenv("ADMIN_IDS").split(",")]
+
+# 🔹 Récupérer ADMIN_IDS en protégeant contre None
+ADMIN_IDS_ENV = os.getenv("ADMIN_IDS", "")  # chaîne vide si non défini
+ADMIN_IDS = [int(x) for x in ADMIN_IDS_ENV.split(",") if x.strip()]
+
+# 🔹 Vérification que le token est défini
+if not TOKEN:
+    raise ValueError("Le token Discord n'est pas défini dans les variables d'environnement !")
 
 # 🔹 Bot configuration avec message_content intent
 intents = discord.Intents.default()
