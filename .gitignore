@@ -1,3 +1,9 @@
+# Fichiers secrets
 .env
+
+# Cache Python
 __pycache__/
 *.pyc
+
+# Autres fichiers temporaires
+*.log
